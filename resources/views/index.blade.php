@@ -1,6 +1,7 @@
-@extends('layouts/master')
+@extends('layouts/app')
 
 @section('stylesheet')
+{{-- <link rel="stylesheet" href="{{ asset('css/index.css') }}"> --}}
 <link rel="stylesheet" href="css/index.css">
 @endsection
 
