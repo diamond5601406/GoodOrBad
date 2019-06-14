@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('stylesheet')
 </head>
 <body>
     <div id="app">
@@ -25,7 +26,8 @@
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{config('app.name', 'Laravel') }}
+                        {{-- {{config('app.name', 'Laravel') }} --}}
+                        Habits
                     </a>
                 </div>
 
