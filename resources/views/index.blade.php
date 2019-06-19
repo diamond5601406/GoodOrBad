@@ -1,5 +1,8 @@
 @extends('layouts/app')
 
+@section('javascript')
+@endsection
+
 @section('stylesheet')
 {{-- <link rel="stylesheet" href="{{ asset('css/index.css') }}"> --}}
 <link rel="stylesheet" href="css/index.css">
@@ -9,6 +12,8 @@
 
 @section('content')
 <div class="container">
-    <h1>Hello World</h1>
+<div id="chart-div"></div>
+<?= $lava->render('DonutChart', 'Habits', 'chart-div') ?>
 </div>
+
 @endsection
