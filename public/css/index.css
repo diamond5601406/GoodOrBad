@@ -1,3 +1,63 @@
 #chart-div {
     color: #000;
 }
+
+#display_area #good_habits_diaplay {
+    display: inline-block;
+}
+
+#display_area #bad_habits_display {
+    display: inline-block;
+}
+
+.row .good-col {
+    padding-right: 1px;
+}
+
+.row .bad-col {
+    padding-left: 1px;
+}
+
+.table tbody tr td {
+    vertical-align: middle;
+}
+
+.table tbody tr td .table-div {
+    width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.bg-dark .container {
+    padding: 20px;
+    font-weight: bold;
+    color: #3490dc;
+}
+
+.bg-dark .radio-area p {
+    margin-bottom: 0;
+}
+
+.bg-dark .radio-area label {
+    display: inline-block;
+}
+
+.bg-dark label {
+    display: block;
+    margin-bottom: 0;
+}
+
+.bg-dark .level {
+    width: 35px;
+}
+
+.bg-dark .title {
+    width: 32px;
+}
+
+.bg-dark .contents {
+    width: 60px;
+}
+                           
+
