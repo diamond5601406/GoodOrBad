@@ -36,12 +36,12 @@
                 </div>
                 <!-- Navbar Right -->
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    @guest
+                    {{-- @guest --}}
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">ログイン</a></li>
                                 <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">ユーザ登録</a></li>
                             </ul>
-                    @endguest
+                    {{-- @endguest --}}
                 </div>
             </div>
         </nav>
