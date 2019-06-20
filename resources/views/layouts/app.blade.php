@@ -25,7 +25,7 @@
         <nav class="navbar navbar-expand-lg navbar-info bg-dark">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="/home">
                         {{-- {{config('app.name', 'Laravel') }} --}}
                         Habits
                     </a>
