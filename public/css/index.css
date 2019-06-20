@@ -59,5 +59,9 @@
 .bg-dark .contents {
     width: 60px;
 }
+
+.card {
+    border: 10px solid #3490dc;
+}
                            
 
