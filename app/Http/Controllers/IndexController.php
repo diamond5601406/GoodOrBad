@@ -67,6 +67,11 @@ class IndexController extends Controller
         ]);
     }
 
+    public function detail($id) {
+        $datas = Post::find($id);
+        return view('/detail')->with('datas', $datas);
+    }
+
     // public function show() {
     //     $posts = DB::select('select * from posts where goodOrbad = 1');
     //     return view('/index')->with('posts', $posts);

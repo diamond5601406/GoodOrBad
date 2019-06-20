@@ -12,9 +12,12 @@ use App\Http\Controllers\IndexController;
 |
 */
 
-Route::get('/', 'IndexController@index');
+Route::get('/home', 'IndexController@index')->name('home');
 
-Route::post('/', 'IndexController@create');
+Route::post('/home', 'IndexController@create');
+
+Route::get('/home/detail/{id}', 'IndexController@detail')->name('detail');
+
 
 // Route::get('/', 'IndexController@show');
 

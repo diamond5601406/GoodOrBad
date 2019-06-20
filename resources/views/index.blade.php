@@ -12,7 +12,7 @@
 
 @section('content')
 <div class="container">
-    <div id="chart-div"></div>
+    <div id="chart-div" style="margin-top: 18px;"></div>
     <?= $lava->render('DonutChart', 'Habits', 'chart-div') ?>
 
     <div class="row">
@@ -31,14 +31,15 @@
                     <tr class="table-info">
                         <td>{{ $good_post->level }}</td>
                         <td><div class="table-div">{{ $good_post->title }}</div></td>
-                        <form mehtod="GET" action="/detail/{{ $good_post->id }}">
-                            {{ csrf_field() }}
-                        <td><button class="btn-primary" type="submit">詳細</button></td>
-                        </form>
-                        <form method="POST" action="/delete/{{ $good_post->id }}">
-                            {{ csrf_field() }}
-                            <td><button class="btn-danger" type="submit">削除</button></td>
-                        </form>
+                        <td>
+                            <a href="/home/detail/{{ $good_post->id }}"><button class="btn-primary">詳細</button></a>
+                        </td>
+                        <td>
+                            <form method="POST" action="/index/delete/{{ $good_post->id }}">
+                                {{ csrf_field() }}
+                                <button class="btn-danger" type="submit">削除</button>
+                            </form>
+                        </td>
                     </tr>
                 </tbody>
                 @endforeach
@@ -60,14 +61,15 @@
                     <tr class="table-danger">
                         <td scope="row">{{ $bad_post->level }}</td>
                         <td scope="row"><div class="table-div">{{ $bad_post->title }}</td>
-                        <form mehtod="GET" action="/detail/{{ $bad_post->id }}">
-                            {{ csrf_field() }}
-                        <td scope="row"><button class="btn-primary" type="submit">詳細</button></td>
-                        </form>
-                        <form method="POST" action="/index/delete/{{ $bad_post->id }}">
-                            {{ csrf_field() }}
-                        <td scope="row"><button class="btn-danger" type="submit">削除</button></td>
-                        </form>
+                        <td>
+                            <a href="/home/detail/{{ $bad_post->id }}"><button class="btn-primary">詳細</button></a>
+                        </td>
+                        <td>
+                            <form method="POST" action="/index/delete/{{ $bad_post->id }}">
+                                {{ csrf_field() }}
+                                <button class="btn-danger" type="submit">削除</button>
+                            </form>
+                        </td>
                     </tr>
                 </tbody>
                 @endforeach
@@ -78,41 +80,68 @@
 
 <div class="bg-dark text-white">
     <div class="container">
-        <form method="POST" action="/">
-            {{ csrf_field() }}
-            <div class="radio-area">
-                <p>Good or Bad ?</p>
-                <label for="good">
-                    <input type="radio" name="goodOrbad" id="good" value="1" checked>Good
-                </label>
-                <label for="bad">
-                    <input type="radio" name="goodOrbad" id="bad" value="0">Bad
-                </label>
-            </div><!-- radio-area -->
+        <div class="card bg-light m-5 p-3">
+                <div class="card-body">
+                    <h2 class="card-title">Make a Habit</h2>
+                    <form class="needs-validation" method="POST" action="/">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <div class="radio-area">
+                                <p>Good or Bad ?</p>
+                                <label for="good">
+                                    <input type="radio" name="goodOrbad" id="good" value="1" checked>Good
+                                </label>
+                                <label for="bad">
+                                    <input type="radio" name="goodOrbad" id="bad" value="0">Bad
+                                </label>
+                            </div><!-- radio-area -->
+                        </div>
+                        <div class="form-group">
+                                <div class="select-area">
+                                    <label class="level" for="level">Level</label>
+                                        @if($errors->has('level'))
+                                        <div class="text-danger">
+                                            {{ $errors->first('level') }}
+                                        </div>
+                                        @endif
+                                    <select class="form-control" id="level" name="level">
+                                        <option value="">レベルを選択してください</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div><!-- select-area-->
+                        </div>
 
-            <div class="select-area">
-                <label class="level" for="level">Level</label>
-                <select id="level" name="level">
-                    <option value="">レベルを選択してください</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div><!-- select-area-->
+                        <div class="form-group">
+                                <div class="title-area">
+                                    <label class="title" for="title">Title</label>
+                                        @if($errors->has('title'))
+                                        <div class="text-danger">
+                                            {{ $errors->first('title') }}
+                                        </div>
+                                        @endif
+                                    <input class="form-control" type="text" name="title" id="title" value="{{ old('title') }}" size="40" maxlength="20">
+                                </div>
+                        </div>
 
-            <div class="title-area">
-                <label class="title" for="title">Title</label>
-                <input type="text" name="title" id="title" value="{{ old('title') }}" size="40" maxlength="20">
-            </div>
-
-            <div class="content-area">
-                <label class="contents" for="content">Contents</label>
-                <textarea name="content" id="content" value="{{ old('content') }}" rows="4" cols="40"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+                        <div class="form-group">
+                                <div class="content-area">
+                                    <label class="contents" for="content">Contents</label>
+                                        @if($errors->has('content'))
+                                        <div class="text-danger">
+                                            {{ $errors->first('content') }}
+                                        </div>
+                                        @endif
+                                    <textarea class="form-control" name="content" id="content" value="{{ old('content') }}" rows="4" cols="40"></textarea>
+                                </div>
+                        </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div><!-- card-body -->
+        </div><!-- card -->
     </div><!-- container -->
 </div><!-- bg-dark -->
 
