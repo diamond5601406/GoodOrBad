@@ -24,9 +24,18 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'goodOrbad' => 'required',
             'level' => 'required',
-            'title' => 'required',
+            'title' => 'required|max:255',
+            'content' => 'max:300'
+        ];
+    }
+
+    public function messages() 
+    {
+        return [
+            'level.required' => 'レベル項目は必須です。',
+            'title.required' => 'タイトルは必須です。',
+            'content.max' => '最大で300文字です。'
         ];
     }
 }
