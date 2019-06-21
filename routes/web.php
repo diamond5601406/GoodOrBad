@@ -12,15 +12,17 @@ use App\Http\Controllers\IndexController;
 |
 */
 
-Route::get('/home', 'IndexController@index')->name('home');
+Route::get('/home', 'IndexController@index');
 
-Route::post('/home', 'IndexController@create');
+Route::post('/home', 'IndexController@post');
 
 Route::get('/home/detail/{id}', 'IndexController@detail')->name('detail');
+
+// Route::post('/home', 'indexController@delete');
 
 
 // Route::get('/', 'IndexController@show');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
