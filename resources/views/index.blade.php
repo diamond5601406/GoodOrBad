@@ -35,9 +35,10 @@
                             <a href="/home/detail/{{ $good_post->id }}"><button class="btn-primary">詳細</button></a>
                         </td>
                         <td>
-                            <form method="POST" action="/index/delete/{{ $good_post->id }}">
+                            <form method="POST" action="/home">
                                 {{ csrf_field() }}
-                                <button class="btn-danger" type="submit">削除</button>
+                                <input type="hidden" name="id" value="{{ $good_post->id }}">
+                                <input class="btn-danger" name="delete" type="submit" value="削除">
                             </form>
                         </td>
                     </tr>
@@ -65,9 +66,10 @@
                             <a href="/home/detail/{{ $bad_post->id }}"><button class="btn-primary">詳細</button></a>
                         </td>
                         <td>
-                            <form method="POST" action="/index/delete/{{ $bad_post->id }}">
+                            <form method="POST" action="/home">
                                 {{ csrf_field() }}
-                                <button class="btn-danger" type="submit">削除</button>
+                                <input type="hidden" name="id" value="{{ $bad_post->id }}">
+                                <input class="btn-danger" name="delete" type="submit" value="削除">
                             </form>
                         </td>
                     </tr>
@@ -83,7 +85,7 @@
         <div class="card bg-light m-5 p-3">
                 <div class="card-body">
                     <h2 class="card-title">Make a Habit</h2>
-                    <form class="needs-validation" method="POST" action="/">
+                    <form method="POST" action="/home">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <div class="radio-area">
@@ -138,7 +140,7 @@
                                     <textarea class="form-control" name="content" id="content" value="{{ old('content') }}" rows="4" cols="40"></textarea>
                                 </div>
                         </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                    <input type="submit" name="create" class="btn btn-primary" value="Submit">
                     </form>
                 </div><!-- card-body -->
         </div><!-- card -->
