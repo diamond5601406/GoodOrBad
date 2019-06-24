@@ -39,8 +39,8 @@ class IndexController extends Controller
 
     public function detail($id) 
     {
-        $datas = Post::find($id);
-        return view('/detail')->with('datas', $datas);
+        $data = Post::find($id);
+        return view('/detail')->with('data', $data);
     }
 
     public function post(Request $request)
@@ -67,6 +67,7 @@ class IndexController extends Controller
             'level.required' => 'レベルは必須です。',
             'title.required' => 'タイトルは必須です。'
         ]);
+
         $data = new Post();
         $data->goodOrbad = $request->goodOrbad;
         $data->level = $request->level;

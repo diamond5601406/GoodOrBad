@@ -28,12 +28,11 @@ Route::post('/home', 'IndexController@post');
 //     exit;
 // });
 
-// Route::get('/home/detail/{id}', 'IndexController@detail')->name('detail');
-
 // Route::post('/home', 'indexController@delete');
 
 
 // Route::get('/', 'IndexController@show');
+Route::get('/home/detail/{id}', 'IndexController@detail')->name('detail');
 
 Auth::routes();
 
