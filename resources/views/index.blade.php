@@ -125,7 +125,7 @@
                                             {{ $errors->first('title') }}
                                         </div>
                                         @endif
-                                    <input class="form-control" type="text" name="title" id="title" value="{{ old('title') }}" size="40" maxlength="20">
+                                    <input class="form-control" type="text" name="title" id="title" value="{{ old('title') }}" size="40" maxlength="20" >
                                 </div>
                         </div>
 
