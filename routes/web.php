@@ -16,7 +16,19 @@ Route::get('/home', 'IndexController@index');
 
 Route::post('/home', 'IndexController@post');
 
-Route::get('/home/detail/{id}', 'IndexController@detail')->name('detail');
+// Route::post('/home', function() {
+//     if(Input::get('create_post')) {
+//         return 'IndexController@create_post';
+//     }
+//     elseif(Input::get('delete_post')) {
+//         return 'IndexController@delete_post';
+//     }
+
+//     header('Location: /home');
+//     exit;
+// });
+
+// Route::get('/home/detail/{id}', 'IndexController@detail')->name('detail');
 
 // Route::post('/home', 'indexController@delete');
 
