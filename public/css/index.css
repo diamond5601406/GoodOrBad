@@ -63,5 +63,9 @@
 .card {
     border: 10px solid #3490dc;
 }
+
+#detail .card-body {
+    padding: 15px 15px 0 15px;
+}
                            
 
