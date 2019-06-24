@@ -16,8 +16,8 @@
                             {{ $data->goodOrbad = 'Bad' }}
                         @endif
                         <tr>
-                          <td>Good or Bad</td>
-                          <td>{{ $data->goodOrbad }}</td>  
+                            <td>Good or Bad</td>
+                            <td>{{ $data->goodOrbad }}</td>  
                         </tr>
                         <tr>
                             <td>Level</td>
@@ -40,5 +40,6 @@
                     </tbody>
                 </table>
             </div>
+        </div>
     </div>
 @endsection

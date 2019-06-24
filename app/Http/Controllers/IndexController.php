@@ -20,6 +20,7 @@ class IndexController extends Controller
 
         $goodHabits_number = count($good_posts);
         $badHabits_number = count($bad_posts);
+        
         $goodHabits_percentage = round(($goodHabits_number / ($goodHabits_number + $badHabits_number)) * 100);
         $badHabits_percentage = round(($badHabits_number / ($goodHabits_number + $badHabits_number)) * 100);
 
@@ -50,6 +51,12 @@ class IndexController extends Controller
     {
         $data = Post::find($id);
         return view('/detail')->with('data', $data);
+    }
+
+    public function ajaxdetail($id) 
+    {
+        $data = Post::find($id);
+        return view('/ajaxdetail')->with('data', $data);
     }
 
     public function post(Request $request)
