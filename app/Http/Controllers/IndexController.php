@@ -36,7 +36,8 @@ class IndexController extends Controller
                 ->addRow(['BadHabits', $badHabits_percentage]);
         
         $lava->DonutChart('Habits', $reasons, [
-            'title' => 'Percentage of Habits'
+            'title' => 'Percentage of Habits',
+            'color' => '#000'
         ]);
 
         return view('/index')->with([
