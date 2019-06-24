@@ -11,9 +11,51 @@
 @section('title', 'ホーム画面')
 
 @section('content')
+<div id="list">
     <div class="container">
         <div id="chart-div" style="margin-top: 18px;"></div>
         <?= $lava->render('DonutChart', 'Habits', 'chart-div') ?>
+
+        <div id="detail" style="display: none;">
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Good or Bad</td>
+                                    <td id="goodOrbad"></td>  
+                                </tr>
+                                <tr>
+                                    <td>Level</td>
+                                    <td id="level"></td>
+                                </tr>
+                                <tr>
+                                    <td>Title</td>
+                                    <td id="title"></td>
+                                </tr>
+                                
+                                <tr id="content_row">
+                                    <td>Content</td>
+                                    <td id="content"></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Created_at</td>
+                                    <td id="created_at"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td style="text-align: right;">
+                                            <a href="#" onclick="view_list(); return false;"><button class="btn-primary">戻る</button></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col good-col">
@@ -32,7 +74,7 @@
                             <td>{{ $good_post->level }}</td>
                             <td><div class="table-div">{{ $good_post->title }}</div></td>
                             <td>
-                                <a href="/home/detail/{{ $good_post->id }}"><button class="btn-primary">詳細</button></a>
+                                <a href="#" onclick="view_detail({{$good_post->id}}); return false;"><button class="btn-primary">詳細</button></a>
                             </td>
                             <td>
                                 <form method="POST" action="/home">
@@ -63,7 +105,7 @@
                             <td scope="row">{{ $bad_post->level }}</td>
                             <td scope="row"><div class="table-div">{{ $bad_post->title }}</td>
                             <td>
-                                <a href="/home/detail/{{ $bad_post->id }}"><button class="btn-primary">詳細</button></a>
+                                <a href="#" onclick="view_detail({{$bad_post->id}}); return false;"><button class="btn-primary">詳細</button></a>
                             </td>
                             <td>
                                 <form method="POST" action="/home">
@@ -79,6 +121,8 @@
             </div><!-- bad_col -->
         </div><!-- row -->
     </div><!-- container -->
+</div><!-- list -->
+
 
     <div class="bg-dark text-white">
         <div class="container">
@@ -158,6 +202,63 @@
                         }
                     });
                 });
+
+                view_detail = function(id) {
+                    // alert(id);
+                    // $('#list').hide();
+                    $('#detail').show();
+                    // console.log($('#goodOrbad'))
+                    // $('#goodOrbad').html('good');
+
+                    $.ajax({
+                    url:'/home/ajaxdetail/'+id,
+                    type:'GET',
+                    data:{
+                    }
+                    })
+                    // Ajaxリクエストが成功した時発動
+                    .done( (data) => {
+                        $('.result').html(data);
+                        console.log(data);
+                        let array_data = data.split("\n");
+                        console.log(array_data);
+                        let goodOrbad = array_data[0];
+                        if(goodOrbad == 1) {
+                            goodOrbad = 'Good';
+                        }else{
+                            goodOrbad = 'Bad';
+                        }
+                        $('#goodOrbad').html(goodOrbad);
+                        let level = array_data[1];
+                        $('#level').html(level);
+                        let title = array_data[2];
+                        $('#title').html(title);
+                        let content = array_data[3];
+                        console.log(content.length);
+                        if(content == "") {
+                            $('#content_row').hide();
+                        }else {
+                            $('#content_row').show();
+                        }
+                        $('#content').html(content);
+                        let created_at = array_data[4];
+                        $('#created_at').html(created_at);
+                    })
+                    // Ajaxリクエストが失敗した時発動
+                    .fail( (data) => {
+                        $('.result').html(data);
+                        console.log(data);
+                    })
+                    // Ajaxリクエストが成功・失敗どちらでも発動
+                    .always( (data) => {
+
+                    });
+                }
+
+                view_list = function() {
+                    $('#list').show();
+                    $('#detail').hide();
+                }
             </script>
     @endsection
 @endsection
