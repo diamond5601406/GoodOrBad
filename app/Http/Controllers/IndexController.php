@@ -14,28 +14,37 @@ class IndexController extends Controller
 {
     public function index() 
     {
+
+        $good_posts = DB::select('select * from posts where goodOrbad = 1');
+        $bad_posts = DB::select('select * from posts where goodOrbad = 0');
+
+        $goodHabits_number = count($good_posts);
+        $badHabits_number = count($bad_posts);
+        $goodHabits_percentage = ($goodHabits_number / ($goodHabits_number + $badHabits_number)) * 100;
+        $badHabits_percentage = ($badHabits_number / ($goodHabits_number + $badHabits_number)) * 100;
+
+
+
         $lava = new Lavacharts;
 
         $reasons = $lava->DataTable();
         
         $reasons->addStringColumn('GoodOrBad')
                 ->addNumberColumn('Percent')
-                ->addRow(['GoodHabits', 70])
-                ->addRow(['BadHabits', 30]);
+                ->addRow(['GoodHabits', $goodHabits_percentage])
+                ->addRow(['BadHabits', $badHabits_percentage]);
         
         $lava->DonutChart('Habits', $reasons, [
             'title' => 'Percentage of Habits'
         ]);
 
-        $good_posts = DB::select('select * from posts where goodOrbad = 1');
-        $bad_posts = DB::select('select * from posts where goodOrbad = 0');
-
         return view('/index')->with([
             "lava" => $lava,
             "good_posts" => $good_posts,
-            "bad_posts" => $bad_posts
+            "bad_posts" => $bad_posts,
         ]);
     }
+
 
     public function detail($id) 
     {
@@ -59,7 +68,7 @@ class IndexController extends Controller
 
       public function create(Request $request) 
       {
-        $validateData = $request->validate([
+        $request->validate([
             'level' => 'required',
             'title' => 'required|max:255',
             'content' => 'max:300'
@@ -71,8 +80,8 @@ class IndexController extends Controller
         $data = new Post();
         $data->goodOrbad = $request->goodOrbad;
         $data->level = $request->level;
-        $data->title = $validateData->title;
-        $data->content = $validateData->content;
+        $data->title = $request->title;
+        $data->content = $request->content;
         $data->save();
       }
 
@@ -90,7 +99,9 @@ class IndexController extends Controller
     public function delete(Request $request)
      {
         $habit = Post::find($request->id);
-        $habit->delete();
+        if(!empty($habit)) {
+            $habit->delete();    
+        }
         // return $this->index();
         // header('Location: /home');
         // exit;
