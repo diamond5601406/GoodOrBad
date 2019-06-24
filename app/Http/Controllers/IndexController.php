@@ -20,8 +20,8 @@ class IndexController extends Controller
 
         $goodHabits_number = count($good_posts);
         $badHabits_number = count($bad_posts);
-        $goodHabits_percentage = ($goodHabits_number / ($goodHabits_number + $badHabits_number)) * 100;
-        $badHabits_percentage = ($badHabits_number / ($goodHabits_number + $badHabits_number)) * 100;
+        $goodHabits_percentage = round(($goodHabits_number / ($goodHabits_number + $badHabits_number)) * 100);
+        $badHabits_percentage = round(($badHabits_number / ($goodHabits_number + $badHabits_number)) * 100);
 
 
 
