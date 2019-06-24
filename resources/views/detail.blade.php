@@ -10,6 +10,11 @@
             <div class="card-body">
                 <table class="table">
                     <tbody>
+                        @if($data->goodOrbad ===1)
+                            {{ $data->goodOrbad = 'Good' }}
+                        @else
+                            {{ $data->goodOrbad = 'Bad' }}
+                        @endif
                         <tr>
                           <td>Good or Bad</td>
                           <td>{{ $data->goodOrbad }}</td>  
