@@ -35,17 +35,6 @@
                 </div>
                 <!-- Navbar Right -->
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    @guest
-                            <ul class="nav navbar-nav navbar-right">
-                                <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">ログイン</a></li>
-                                <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">ユーザ登録</a></li>
-                            </ul>
-                    @endguest
-                    @if (Auth::user())
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="nav-item"><a href="{{ route('logout')}}" class="nav-link">ログアウト</a></li>
-                        </ul>
-                    @endif
                 </div>
             </div>
         </nav>

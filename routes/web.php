@@ -12,27 +12,9 @@ use App\Http\Controllers\IndexController;
 |
 */
 
-Auth::routes();
-
 Route::get('/', 'IndexController@index');
 
-// Route::post('/', 'IndexController@post');
-
-Route::post('/', function() {
-    dd('through');
-    if(Input::get('create')) {
-        return 'IndexController@create';
-    }
-    elseif(Input::get('delete')) {
-        return 'IndexController@delete';
-    }
-
-    header('Location: /');
-    exit;
-});
-
-Route::post('/', 'indexController@delete');
-
+Route::post('/', 'IndexController@post');
 
 // Route::get('/', 'IndexController@show');
 Route::get('/detail/{id}', 'IndexController@detail')->name('detail');

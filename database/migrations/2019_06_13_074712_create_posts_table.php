@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->integer('goodOrbad');
             $table->integer('level');
             $table->string('title');
-            $table->string('content');
+            $table->string('content')->nullable();
             $table->timestamps();
         });
     }

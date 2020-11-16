@@ -12,49 +12,50 @@ use Illuminate\Support\Facades\Input;
 
 class IndexController extends Controller
 {
-    public function index() 
+    public function index()
     {
 
         $good_posts = DB::select('select * from posts where goodOrbad = 1');
         $bad_posts = DB::select('select * from posts where goodOrbad = 0');
 
-        $goodHabits_number = count($good_posts);
-        $badHabits_number = count($bad_posts);
+        if($good_posts  || $bad_posts) {
+            $goodHabits_number = count($good_posts);
+            $badHabits_number = count($bad_posts);
 
-        $goodHabits_percentage = round(($goodHabits_number / ($goodHabits_number + $badHabits_number)) * 100);
-        $badHabits_percentage = round(($badHabits_number / ($goodHabits_number + $badHabits_number)) * 100);
+            $goodHabits_percentage = round(($goodHabits_number / ($goodHabits_number + $badHabits_number)) * 100);
+            $badHabits_percentage = round(($badHabits_number / ($goodHabits_number + $badHabits_number)) * 100);
 
+            $lava = new Lavacharts;
 
+            $reasons = $lava->DataTable();
 
-        $lava = new Lavacharts;
+            $reasons->addStringColumn('GoodOrBad')
+                    ->addNumberColumn('Percent')
+                    ->addRow(['GoodHabit', $goodHabits_percentage])
+                    ->addRow(['BadHabit', $badHabits_percentage]);
 
-        $reasons = $lava->DataTable();
+            $lava->DonutChart('Habits', $reasons, [
+                'title' => 'Percentage of Habits',
+                'color' => '#000',
+            ]);
 
-        $reasons->addStringColumn('GoodOrBad')
-                ->addNumberColumn('Percent')
-                ->addRow(['GoodHabit', $goodHabits_percentage])
-                ->addRow(['BadHabit', $badHabits_percentage]);
-
-        $lava->DonutChart('Habits', $reasons, [
-            'title' => 'Percentage of Habits',
-            'color' => '#000'
-        ]);
-
-        return view('/index')->with([
-            "lava" => $lava,
-            "good_posts" => $good_posts,
-            "bad_posts" => $bad_posts,
-        ]);
+            return view('/index')->with([
+                "lava" => $lava,
+                "good_posts" => $good_posts,
+                "bad_posts" => $bad_posts,
+            ]);
+        }
+        return view('/index');
     }
 
 
-    public function detail($id) 
+    public function detail($id)
     {
         $data = Post::find($id);
         return view('/detail')->with('data', $data);
     }
 
-    public function ajaxdetail($id) 
+    public function ajaxdetail($id)
     {
         $data = Post::find($id);
         return view('/ajaxdetail')->with('data', $data);
@@ -75,7 +76,7 @@ class IndexController extends Controller
         return $this->index();
     }
 
-      public function create(Request $request) 
+      public function create(Request $request)
       {
         $request->validate([
             'level' => 'required',
@@ -86,17 +87,15 @@ class IndexController extends Controller
             'title.required' => 'タイトルは必須です。'
         ]);
 
-        // $post = new Post();
-        // $post->goodOrbad = $request->goodOrbad;
-        // $post->level = $request->level;
-        // $post->title = $request->title;
-        // $post->content = $request->content;
-        // $post->save();
-        DB::table('posts')->updateOrInsert(
-            ['goodOrbad' => $request->goodOrbad],
-            ['level' => $request->level],
-            ['title' => $request->title],
-            ['content' => $request->content],
+        $data = $request->all();
+
+        DB::table('posts')->insert(
+            [
+                'goodOrbad' => $data['goodOrbad'],
+                'level' => $data['level'],
+                'title' => $data['title'],
+                'content' => $data['content']
+            ]
         );
 
         header('Location: /');

@@ -12,8 +12,10 @@
 @section('content')
 <div id="list">
     <div class="container">
+    @if(isset($lava)):
         <div id="chart-div" style="margin-top: 18px;"></div>
-        <?= $lava->render('DonutChart', 'Habits', 'chart-div') ?>
+
+           <?= $lava->render('DonutChart', 'Habits', 'chart-div'); ?>
 
         <div id="detail" style="display: none;">
             <div class="container">
@@ -23,7 +25,7 @@
                             <tbody>
                                 <tr>
                                     <td>Good or Bad</td>
-                                    <td id="goodOrbad"><?= isset($data['goodOrbad']) ?></td>  
+                                    <td id="goodOrbad"><?= isset($data['goodOrbad']) ?></td>
                                 </tr>
                                 <tr>
                                     <td>Level</td>
@@ -33,12 +35,10 @@
                                     <td>Title</td>
                                     <td id="title"></td>
                                 </tr>
-                                
                                 <tr id="content_row">
                                     <td>Content</td>
                                     <td id="content"></td>
                                 </tr>
-                                
                                 <tr>
                                     <td>Created_at</td>
                                     <td id="created_at"></td>
@@ -119,6 +119,7 @@
                 </table>
             </div><!-- bad_col -->
         </div><!-- row -->
+    @endif
     </div><!-- container -->
 </div><!-- list -->
 
@@ -183,7 +184,7 @@
                                         <textarea class="form-control" name="content" id="content" value="{{ old('content') }}" rows="4" cols="40"></textarea>
                                     </div>
                             </div>
-                        <input type="submit" name="create" class="btn btn-primary" value="Submit">
+                        <input class="btn btn-primary" name="create" type="submit" value="Submit">
                         </form>
                     </div><!-- card-body -->
             </div><!-- card -->
