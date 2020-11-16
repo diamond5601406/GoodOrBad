@@ -65,10 +65,11 @@ class IndexController extends Controller
         if(Input::get('create')) {
 
             $this->create($request);
+
         }elseif(Input::get('delete')) {
 
             $this->delete($request);
-            // return $this->delete($request);
+
         }
 
         return $this->index();
@@ -85,12 +86,18 @@ class IndexController extends Controller
             'title.required' => 'タイトルは必須です。'
         ]);
 
-        $data = new Post();
-        $data->goodOrbad = $request->goodOrbad;
-        $data->level = $request->level;
-        $data->title = $request->title;
-        $data->content = $request->content;
-        $data->save();
+        // $post = new Post();
+        // $post->goodOrbad = $request->goodOrbad;
+        // $post->level = $request->level;
+        // $post->title = $request->title;
+        // $post->content = $request->content;
+        // $post->save();
+        DB::table('posts')->updateOrInsert(
+            ['goodOrbad' => $request->goodOrbad],
+            ['level' => $request->level],
+            ['title' => $request->title],
+            ['content' => $request->content],
+        );
 
         header('Location: /');
         exit;

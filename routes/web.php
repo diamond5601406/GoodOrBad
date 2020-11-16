@@ -19,11 +19,12 @@ Route::get('/', 'IndexController@index');
 // Route::post('/', 'IndexController@post');
 
 Route::post('/', function() {
+    dd('through');
     if(Input::get('create')) {
-        return 'IndexController@create_post';
+        return 'IndexController@create';
     }
     elseif(Input::get('delete')) {
-        return 'IndexController@delete_post';
+        return 'IndexController@delete';
     }
 
     header('Location: /');
@@ -37,6 +38,3 @@ Route::post('/', 'indexController@delete');
 Route::get('/detail/{id}', 'IndexController@detail')->name('detail');
 
 Route::get('/ajaxdetail/{id}', 'IndexController@ajaxdetail')->name('detail');
-
-
-Route::get('/', 'HomeController@index');
