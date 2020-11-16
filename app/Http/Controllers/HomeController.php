@@ -43,8 +43,8 @@ class HomeController extends Controller
         
         $reasons->addStringColumn('GoodOrBad')
                 ->addNumberColumn('Percent')
-                ->addRow(['GoodHabits', $goodHabits_percentage])
-                ->addRow(['BadHabits', $badHabits_percentage]);
+                ->addRow(['GoodHabit', $goodHabits_percentage])
+                ->addRow(['BadHabit', $badHabits_percentage]);
         
         $lava->DonutChart('Habits', $reasons, [
             'title' => 'Percentage of Habits'

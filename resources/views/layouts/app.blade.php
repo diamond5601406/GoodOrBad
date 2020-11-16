@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Habits</title>
+    <title>Habit</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -25,9 +25,8 @@
         <nav class="navbar navbar-expand-lg navbar-info bg-dark">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/home">
-                        {{-- {{config('app.name', 'Laravel') }} --}}
-                        Habits
+                    <a class="navbar-brand" href="/">
+                        Habit
                     </a>
                 </div>
 
@@ -36,12 +35,17 @@
                 </div>
                 <!-- Navbar Right -->
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    {{-- @guest --}}
+                    @guest
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">ログイン</a></li>
                                 <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">ユーザ登録</a></li>
                             </ul>
-                    {{-- @endguest --}}
+                    @endguest
+                    @if (Auth::user())
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="nav-item"><a href="{{ route('logout')}}" class="nav-link">ログアウト</a></li>
+                        </ul>
+                    @endif
                 </div>
             </div>
         </nav>

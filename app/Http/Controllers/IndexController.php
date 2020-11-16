@@ -20,7 +20,7 @@ class IndexController extends Controller
 
         $goodHabits_number = count($good_posts);
         $badHabits_number = count($bad_posts);
-        
+
         $goodHabits_percentage = round(($goodHabits_number / ($goodHabits_number + $badHabits_number)) * 100);
         $badHabits_percentage = round(($badHabits_number / ($goodHabits_number + $badHabits_number)) * 100);
 
@@ -29,12 +29,12 @@ class IndexController extends Controller
         $lava = new Lavacharts;
 
         $reasons = $lava->DataTable();
-        
+
         $reasons->addStringColumn('GoodOrBad')
                 ->addNumberColumn('Percent')
-                ->addRow(['GoodHabits', $goodHabits_percentage])
-                ->addRow(['BadHabits', $badHabits_percentage]);
-        
+                ->addRow(['GoodHabit', $goodHabits_percentage])
+                ->addRow(['BadHabit', $badHabits_percentage]);
+
         $lava->DonutChart('Habits', $reasons, [
             'title' => 'Percentage of Habits',
             'color' => '#000'
@@ -70,7 +70,7 @@ class IndexController extends Controller
             $this->delete($request);
             // return $this->delete($request);
         }
-        
+
         return $this->index();
     }
 
@@ -91,27 +91,19 @@ class IndexController extends Controller
         $data->title = $request->title;
         $data->content = $request->content;
         $data->save();
-      }
 
-    // public function create(PostRequest $request) {
-    //     $data = new Post();
-    //     $data->goodOrbad = $request->goodOrbad;
-    //     $data->level = $request->level;
-    //     $data->title = $request->title;
-    //     $data->content = $request->content;
-    //     $data->save();
-    //     header('Location: /home');
-    //     exit;
-    //   }
+        header('Location: /');
+        exit;
+      }
 
     public function delete(Request $request)
      {
         $habit = Post::find($request->id);
         if(!empty($habit)) {
-            $habit->delete();    
+            $habit->delete();
         }
-        // return $this->index();
-        // header('Location: /home');
-        // exit;
+        return $this->index();
+        header('Location: /');
+        exit;
     }
 }

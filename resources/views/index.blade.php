@@ -4,7 +4,6 @@
 @endsection
 
 @section('stylesheet')
-{{-- <link rel="stylesheet" href="{{ asset('css/index.css') "> --}}
 <link rel="stylesheet" href="css/index.css">
 @endsection
 
@@ -24,7 +23,7 @@
                             <tbody>
                                 <tr>
                                     <td>Good or Bad</td>
-                                    <td id="goodOrbad"></td>  
+                                    <td id="goodOrbad"><?= isset($data['goodOrbad']) ?></td>  
                                 </tr>
                                 <tr>
                                     <td>Level</td>
@@ -77,7 +76,7 @@
                                 <a href="#" onclick="view_detail({{$good_post->id}}); return false;"><button class="btn-primary">詳細</button></a>
                             </td>
                             <td>
-                                <form method="POST" action="/home">
+                                <form method="POST" action="/">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="id" value="{{ $good_post->id }}">
                                     <input class="btn-danger btn-destroy" name="delete" type="submit" value="削除">
@@ -108,7 +107,7 @@
                                 <a href="#" onclick="view_detail({{$bad_post->id}}); return false;"><button class="btn-primary">詳細</button></a>
                             </td>
                             <td>
-                                <form method="POST" action="/home">
+                                <form method="POST" action="/">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="id" value="{{ $bad_post->id }}">
                                     <input class="btn-danger btn-destroy" name="delete" type="submit" value="削除">
@@ -129,7 +128,7 @@
             <div class="card bg-light m-5 p-3">
                     <div class="card-body">
                         <h2 class="card-title">Make a Habit</h2>
-                        <form method="POST" action="/home">
+                        <form method="POST" action="/">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <div class="radio-area">
@@ -191,27 +190,21 @@
         </div><!-- container -->
     </div><!-- bg-dark -->
     @section('script')
-            <script>    
+            <script>
                 $(function(){
                     $(".btn-destroy").click(function(){
                         if(confirm("本当に削除しますか？")){
-            
                         }else{
-                            //cancel
                             return false;
                         }
                     });
                 });
 
                 view_detail = function(id) {
-                    // alert(id);
-                    // $('#list').hide();
                     $('#detail').show();
-                    // console.log($('#goodOrbad'))
-                    // $('#goodOrbad').html('good');
 
                     $.ajax({
-                    url:'/home/ajaxdetail/'+id,
+                    url:'/ajaxdetail/'+id,
                     type:'GET',
                     data:{
                     }
@@ -219,9 +212,7 @@
                     // Ajaxリクエストが成功した時発動
                     .done( (data) => {
                         $('.result').html(data);
-                        console.log(data);
                         let array_data = data.split("\n");
-                        console.log(array_data);
                         let goodOrbad = array_data[0];
                         if(goodOrbad == 1) {
                             goodOrbad = 'Good';
@@ -251,7 +242,6 @@
                     })
                     // Ajaxリクエストが成功・失敗どちらでも発動
                     .always( (data) => {
-
                     });
                 }
 

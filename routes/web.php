@@ -12,30 +12,31 @@ use App\Http\Controllers\IndexController;
 |
 */
 
-Route::get('/home', 'IndexController@index');
+Auth::routes();
 
-Route::post('/home', 'IndexController@post');
+Route::get('/', 'IndexController@index');
 
-// Route::post('/home', function() {
-//     if(Input::get('create_post')) {
-//         return 'IndexController@create_post';
-//     }
-//     elseif(Input::get('delete_post')) {
-//         return 'IndexController@delete_post';
-//     }
+// Route::post('/', 'IndexController@post');
 
-//     header('Location: /home');
-//     exit;
-// });
+Route::post('/', function() {
+    if(Input::get('create')) {
+        return 'IndexController@create_post';
+    }
+    elseif(Input::get('delete')) {
+        return 'IndexController@delete_post';
+    }
 
-// Route::post('/home', 'indexController@delete');
+    header('Location: /');
+    exit;
+});
+
+Route::post('/', 'indexController@delete');
 
 
 // Route::get('/', 'IndexController@show');
-Route::get('/home/detail/{id}', 'IndexController@detail')->name('detail');
+Route::get('/detail/{id}', 'IndexController@detail')->name('detail');
 
-Route::get('/home/ajaxdetail/{id}', 'IndexController@ajaxdetail')->name('detail');
+Route::get('/ajaxdetail/{id}', 'IndexController@ajaxdetail')->name('detail');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
